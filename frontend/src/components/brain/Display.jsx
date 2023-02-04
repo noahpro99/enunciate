@@ -1,6 +1,5 @@
 import React from "react";
 import Directory from "./Directory";
-import ImageMapper from "react-img-mapper";
 
 const Display = (props) => {
   // takes up available width and has an image of a brain in the center of this display
@@ -9,20 +8,7 @@ const Display = (props) => {
   const object = props.object;
 
   // map of areas to be highlighted on the image of the brain
-  const MAP = {
-    name: "my-map",
-    areas: [
-      {
-        name: "iKnbYUWWj2gWP9UxZqMn", //id of the area for hippocampus
-        shape: "rect",
-        // lower right of the brain is the hippocampus
-        coords: [300, 200, 500, 325],
-
-        preFillColor: "rgba(255, 255, 255, 0.5)",
-        fillColor: "rgba(255, 255, 255, 0.5)",
-      },
-    ],
-  };
+  
 
   // on click of an area, set the viewedObject to the object with the id of the area
   function onAreaClick(area) {
@@ -41,13 +27,7 @@ const Display = (props) => {
         <div className="flex flex-row ml-4">{object.name}</div>
       </div> */}
       <div className="h-full mx-auto">
-        <ImageMapper
-          src={object.imageUrl}
-          map={MAP}
-          width={500}
-          imgWidth={500}
-          onClick={onAreaClick}
-        />
+       hi
       </div>
     </div>
   );
