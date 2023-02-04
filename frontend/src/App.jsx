@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Brain from "./pages/Brain";
 import Landing from "./pages/Landing";
+import Enunciate from "./pages/Enunciate";
 
 const App = () => {
   const { currentUser } = React.useContext(AuthContext);
@@ -34,6 +35,9 @@ const App = () => {
           <Route path="signup" element={<Signup />} />
           <Route path="brain" element={<Brain />} />
           <Route path="landing" element={<Landing />} />
+          <Route path="enunciate" element={<Enunciate />} />
+
+          
           {/* <Route path="profile" element={<Profile />} /> */}
         </Route>
       </Routes>
