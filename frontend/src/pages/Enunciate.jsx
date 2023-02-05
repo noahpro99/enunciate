@@ -5,7 +5,13 @@ import NewDailyGoal from '../components/enunciate/NewDailyGoal';
 const Enunciate = () => {
   const [dailyGoal, setDailyGoal] = React.useState({ text: "Assertive Suggestion", date: 10 });
 
-  
+  const currentGoal = () => {
+    return (
+      <><h1 className='font-bold mt-2 mb-2'>Current Goal</h1>
+        <hr className='bg-white h-0.5'></hr>
+        <div className='font-bold mt-2 mb-2'>{dailyGoal.text}</div></>);
+  }
+
   const now = new Date();
   console.log(now.getDate());
 
@@ -18,16 +24,12 @@ const Enunciate = () => {
     );
   } else {
     return (
-      <div className='min-h-screen bg-gradient-to-tr from-purple-500 to-purple-200'>
-        <div className='flex flex-col items-center p-4'>
-          <div className='flex justify-between p-2 bg-yellow-50 shadow-2xl text-lg font-semibold font-mono rounded-lg mb-4 w-56'>
-            <div>☰nunciate</div>
-            <div className=''>{dailyGoal.email} email</div>
-          </div>
-          <div className='backdrop:blur-sm bg-purple-300 bg-opacity-60 shadow-2xl p-2 rounded-2xl'>
-            <h1 className='font-bold mt-2 mb-2'>Current Goal</h1>
-            <hr className='bg-white h-0.5'></hr>
-            <div className='font-bold mt-2 mb-2'>{dailyGoal.text}</div>
+      <div className='min-h-screen bg-gradient-to-br from-purple-500 to-purple-200'>
+        <div className='flex flex-col items-center p-8 w-full'>
+          <div className='text-5xl font-bold font-mono text-white mb-4 p-4'
+          >☰nunciate</div>
+          <div className='backdrop:blur-sm bg-white bg-opacity-20 shadow-2xl p-2 rounded-2xl w-full'>
+            {currentGoal()}
           </div>
         </div>
       </div>
