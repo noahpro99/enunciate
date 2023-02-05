@@ -44,7 +44,7 @@ const Enunciate = () => {
   const now = new Date();
   console.log(now.getDate());
 
-  if (now.getDate() > dailyGoal.date) {
+  if (true) {
     return (
       <div>
         <NewDailyGoal dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} />
