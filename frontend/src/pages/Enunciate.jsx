@@ -3,19 +3,20 @@ import NewDailyGoal from '../components/enunciate/NewDailyGoal';
 import { db } from '../firebase';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getMessaging, getToken } from "firebase/messaging";
 
 
 const Enunciate = () => {
-  const [dailyGoal, setDailyGoal] = React.useState({ text: "This is a test", date: 1 });
+  const [userObj, setUserObj] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
+  const [updatedToday, setUpdatedToday] = React.useState(false);
   const user = React.useContext(AuthContext);
-  const navigate = useNavigate();
   const messaging = getMessaging();
-
-
+  const navigate = useNavigate();
 
   React.useEffect(() => {
+    setLoading(true);
 
     // Get registration token. Initially this makes a network call, once retrieved
     // subsequent calls to getToken will return from cache.
@@ -51,12 +52,14 @@ const Enunciate = () => {
 
       if (docSnap.exists()) {
         console.log("Document data:", docSnap.data());
-        setDailyGoal(docSnap.data());
+        setUserObj(docSnap.data());
       }
       else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
+      setLoading(false);
+
     }
     // call the function
     fetchData().catch(console.error);
@@ -66,27 +69,27 @@ const Enunciate = () => {
     if (!user?.currentUser.uid) {
       navigate("/login");
     }
-  }, [user?.currentUser.uid]);
+  }, [user?.currentUser.uid, navigate, messaging]);
 
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  const now = new Date();
-  console.log(now.getDate());
-
-  if (true) {
+  if (userObj.goal && (userObj.lastUpdated.toDate().getDate() === new Date().getDate() || updatedToday)) {
     return (
       <div>
-        <NewDailyGoal dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} />
-
+        <div>Here is your current goal for today!</div>
+        <div>{userObj.goal}</div>
       </div>
-    );
+    )
   } else {
     return (
       <div>
-        <div>Current Goal</div>
-        <div>{dailyGoal.text}</div>
+        <NewDailyGoal userObj={userObj} setUserObj={setUserObj} setUpdatedToday={setUpdatedToday} />
+
       </div>
-    )
+    );
   }
 
 }
