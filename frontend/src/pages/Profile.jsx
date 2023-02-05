@@ -6,7 +6,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 const Profile = () => {
   const user = useContext(AuthContext);
   const navigate = useNavigate();
-
+  
   const handleSignOut = async () => {
     try {
       await signOutUser();
@@ -16,7 +16,7 @@ const Profile = () => {
       console.log(error);
     }
   };
-
+  
   if (!user) {
     navigate("/login");
   }
