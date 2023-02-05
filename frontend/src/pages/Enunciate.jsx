@@ -12,18 +12,17 @@ const Enunciate = () => {
   const user = React.useContext(AuthContext);
   const navigate = useNavigate();
   
-  console.log(user?.currentUser.uid);
   
   if (!user?.currentUser.uid){
     navigate("/login");
-  }
+  };
   
   React.useEffect(() => {
     // declare the data fetching function
     const fetchData = async () => {
       const docRef = doc(db, "users", user?.currentUser.uid);
       const docSnap = await getDoc(docRef);
-
+      
       if (docSnap.exists()) {
         console.log("Document data:", docSnap.data());
         setDailyGoal(docSnap.data());
@@ -35,16 +34,18 @@ const Enunciate = () => {
     }
     // call the function
     fetchData()
-      // make sure to catch any error
-      .catch(console.error);
-  }, [user?.currentUser.uid]);
+    // make sure to catch any error
+    .catch(console.error);
 
+
+  }, [user?.currentUser.uid]);
+  
 
 
   const now = new Date();
   console.log(now.getDate());
 
-  if (now.getDate() > dailyGoal.date) {
+  if (true) {
     return (
       <div>
         <NewDailyGoal dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} />
