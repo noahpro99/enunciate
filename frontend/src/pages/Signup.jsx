@@ -40,7 +40,7 @@ const Signup = () => {
           });
           console.log("User added to database");
           setLoading(false);
-          navigate("/profile");
+          navigate("/enunciate");
         } catch (error) {
           console.log(error);
           setError(error.message);

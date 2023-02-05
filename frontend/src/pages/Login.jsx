@@ -29,7 +29,7 @@ const Login = () => {
         console.log("User signed in");
         console.log(user);
         setLoading(false);
-        navigate("/app");
+        navigate("/enunciate");
       })
       .catch((error) => {
         const errorCode = error.code;
