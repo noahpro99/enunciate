@@ -5,14 +5,19 @@ import { BrowserRouter } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Brain from "./pages/Brain";
-import Landing from "./pages/Landing";
 import Enunciate from "./pages/Enunciate";
+import Landing from "./pages/Landing";
 
 const App = () => {
   const { currentUser } = React.useContext(AuthContext);
 
   const ProtectedRoute = ({ children }) => {
+    //  except for the landing page navigate to login if not logged in
+    // check if on landing page
+    if (window.location.pathname === "/") {
+      return children;
+    }
+    // check if user is logged in
     if (!currentUser) {
       return <Navigate to="/login" />;
     }
@@ -27,17 +32,15 @@ const App = () => {
             index
             element={
               <ProtectedRoute>
-                <Home />
+                <Landing />
               </ProtectedRoute>
             }
           />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="brain" element={<Brain />} />
-          <Route path="landing" element={<Landing />} />
           <Route path="enunciate" element={<Enunciate />} />
 
-          
+
           {/* <Route path="profile" element={<Profile />} /> */}
         </Route>
       </Routes>
