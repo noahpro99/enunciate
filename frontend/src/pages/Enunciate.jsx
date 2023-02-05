@@ -8,12 +8,19 @@ import { getMessaging, getToken } from "firebase/messaging";
 
 
 const Enunciate = () => {
+
   const [userObj, setUserObj] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const [updatedToday, setUpdatedToday] = React.useState(false);
   const user = React.useContext(AuthContext);
   const messaging = getMessaging();
   const navigate = useNavigate();
+  const currentGoal = () => {
+    return (
+      <><h1 className='font-bold mt-2 mb-2'>Current Goal</h1>
+        <hr className='bg-white h-0.5'></hr>
+        <div className='font-bold mt-2 mb-2'>{dailyGoal.text}</div></>);
+  }
 
   React.useEffect(() => {
     setLoading(true);
@@ -78,17 +85,21 @@ const Enunciate = () => {
 
   if (userObj.goal && (userObj.lastUpdated.toDate().getDate() === new Date().getDate() || updatedToday)) {
     return (
+      <div className='min-h-screen bg-gradient-to-br from-purple-500 to-purple-200'>
+        <div className='flex flex-col items-center p-8 w-full'>
+          <div className='text-5xl font-bold font-mono text-white mb-4 p-4'
+          >☰nunciate</div>
+          <div className='backdrop:blur-sm bg-white bg-opacity-20 shadow-2xl p-2 rounded-2xl w-full'>
+            {currentGoal()}
+          </div>
+        </div>
       <div>
-        <div>Here is your current goal for today!</div>
-        <div>{userObj.goal}</div>
-      </div>
     )
   } else {
     return (
-      <div>
+
         <NewDailyGoal userObj={userObj} setUserObj={setUserObj} setUpdatedToday={setUpdatedToday} />
 
-      </div>
     );
   }
 
